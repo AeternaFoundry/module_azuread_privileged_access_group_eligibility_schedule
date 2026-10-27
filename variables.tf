@@ -13,6 +13,11 @@ Optional:
     - start_date
     - ticket_number
     - ticket_system
+    - timeouts (block):
+        - create (optional)
+        - delete (optional)
+        - read (optional)
+        - update (optional)
 EOT
 
   type = map(object({
@@ -26,6 +31,13 @@ EOT
     start_date           = optional(string)
     ticket_number        = optional(string)
     ticket_system        = optional(string)
+    timeouts = optional(object({
+      create = optional(string)
+      delete = optional(string)
+      read   = optional(string)
+      update = optional(string)
+    }))
   }))
+  # Note: 9 additional provider-side validators are enforced at apply time but not mirrored as validation{} blocks here (bespoke or non-mechanically-translatable).
 }
 

@@ -11,5 +11,15 @@ resource "azuread_privileged_access_group_eligibility_schedule" "privileged_acce
   start_date           = each.value.start_date
   ticket_number        = each.value.ticket_number
   ticket_system        = each.value.ticket_system
+
+  dynamic "timeouts" {
+    for_each = each.value.timeouts != null ? [each.value.timeouts] : []
+    content {
+      create = timeouts.value.create
+      delete = timeouts.value.delete
+      read   = timeouts.value.read
+      update = timeouts.value.update
+    }
+  }
 }
 
